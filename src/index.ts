@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import PostRequest from "./dtos/post.request";
 import PostHandler from "./utils/post.handler";
+import GetRequest from "./dtos/get.request";
+import GetHandler from "./utils/get.handler";
 
 dotenv.config();
 
@@ -14,6 +16,12 @@ app.post('/',(req: Request, res: Response) => {
     const body: PostRequest = req.body;
     const response = PostHandler.buildResponse(body);
     res.json(response)
+});
+
+app.get('/', (req: Request, res: Response) => {
+    const data: GetRequest = req.query
+    const response = GetHandler.buildResponse(data);
+    res.send(response);
 });
 
 app.listen(port, () => {
